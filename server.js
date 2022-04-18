@@ -5,6 +5,7 @@ const cors = require('cors');
 
 //importing routes
 const UserRoute = require('./routes/Users');
+const CategoryRoute = require('./routes/Categories');
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(morgan('tiny'))
 
 //using routes
 app.use('/user',UserRoute);
+app.use('/category',CategoryRoute);
 
 const port = process.env.PORT || 3001;
 app.listen(port,()=>{

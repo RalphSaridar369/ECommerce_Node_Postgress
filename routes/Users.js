@@ -8,7 +8,6 @@ const {
     userVerifyForgotPassword
 } = require('../controllers/Users.js');
 
-const FileUpload = require('../helpers/FileUpload');
 
 //importing middlewares
 const auth = require("../middlewares/auth");
