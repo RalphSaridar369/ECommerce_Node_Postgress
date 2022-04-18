@@ -5,7 +5,11 @@ let schemaTypes = {
         userType:yup.number().min(1).max(3),
         password:yup.string().min(8).required(),
         email:yup.string().email().required(),
-    })
+    }),
+    login:yup.object().shape({
+        password:yup.string().min(8).required(),
+        email:yup.string().email().required(),
+    }),
 }
 
 const formValidator = async(type,data) =>{

@@ -12,7 +12,7 @@ const FileUpload = require('../helpers/FileUpload');
 //importing middlewares
 const auth = require("../middlewares/auth");
 
-router.get('/login',userLogin);
+router.post('/login',userLogin);
 router.post('/signup',userSignup)
 router.post('/forgot-password',userForgotPassword);
 router.post('/file-upload',FileUpload.single('image'),userUploadImage)

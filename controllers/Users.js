@@ -2,25 +2,59 @@ const { SendEmail } = require("../helpers/SendEmail");
 const messages = require('../helpers/Messages');
 const { formValidator } = require("../helpers/Validators");
 const db = require('../db');
+const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt');
 const { isUnique } = require("../helpers/checkUnique");
-const { hashString } = require("../helpers/hashString");
 
 const userLogin = async (req, res) => {
-  const result = "This is the query here"
-  console.log("User Login Functionality");
-  let { user_id, email } = req.body;
 
-  const token = jwt.sign(
-    { user_id: user_id, email },
-    process.env.TOKEN_KEY,
-    {
-      expiresIn: "2h",
+  const checkForm = await formValidator('login', req.body);
+  if (checkForm.length > 0) {
+    res.status(400).json({
+      status: messages[400],
+      error: checkForm
+    })
+  }
+  else {
+    const userQuery = await db.query('SELECT * FROM "Users" WHERE "email" = $1', [
+      req.body.email
+    ])
+    let {id,email,userType} = userQuery.rows[0];
+    if (userQuery.rowCount < 1) {
+      res.status(403).json({
+        status: messages[403],
+        message: "Email doesn't exist",
+      })
     }
-  );
+    else {
+      bcrypt.compare(req.body.password, userQuery.rows[0].password, function (err, result) {
+        if (!result) {
+          res.status(403).json({
+            status: messages[403],
+            message: "Incorrect password",
+          })
+        }
+        else {
 
-  result.token = token;
+          const token = jwt.sign(
+            { id,email,userType },
+            process.env.TOKEN_KEY,
+            {
+              expiresIn: "2h",
+            }
+          );
 
-  res.status(201).json(result);
+          userQuery.rows[0].token = token;
+          delete userQuery.rows[0].password;
+          
+          res.status(201).json({
+            status:messages[200],
+            data:userQuery.rows[0]
+          });
+        }
+      });
+    }
+  }
 }
 
 const userSignup = async (req, res) => {
@@ -33,24 +67,27 @@ const userSignup = async (req, res) => {
   }
   else {
     //checking if email exists
-    if(!await isUnique('SELECT COUNT("email") FROM "Users" WHERE "email" = $1', [req.body.email])){
+    if (!await isUnique('SELECT COUNT("email") FROM "Users" WHERE "email" = $1', [req.body.email])) {
       res.status(403).json({
-        status:messages[403],
-        message:"Email already exists"
+        status: messages[403],
+        message: "Email already exists"
       })
     }
-    else{
-      let password = hashString(req.body.password);
-      console.log("password: ",password)
+    else {
       try {
-        await db.query('INSERT INTO "Users" ("email", "password", "userType") VALUES ($1, $2, $3)', [
-          req.body.email,
-          req.body.password,
-          req.body.userType
-        ]);
-        res.status(200).json({
-          status:messages[200],
-        })
+        const saltRounds = 10;
+        bcrypt.genSalt(saltRounds, function (err, salt) {
+          bcrypt.hash(req.body.password, salt, async function (err, hash) {
+            await db.query('INSERT INTO "Users" ("email", "password", "userType") VALUES ($1, $2, $3)', [
+              req.body.email,
+              hash,
+              req.body.userType
+            ]);
+            res.status(200).json({
+              status: messages[200],
+            })
+          });
+        });
       }
       catch (error) {
         console.log(error)
