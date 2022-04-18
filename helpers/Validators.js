@@ -24,6 +24,10 @@ let schemaTypes = {
     resetPass:yup.object().shape({
         password:yup.string().required(),
         email:yup.string().email().required()
+    }),
+
+    category:yup.object().shape({
+        name:yup.string().required()
     })
 }
 
