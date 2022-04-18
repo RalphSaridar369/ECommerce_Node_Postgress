@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const multer = require('multer');
 
 //importing routes
 const UserRoute = require('./routes/Users');

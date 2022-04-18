@@ -1,10 +1,10 @@
 const yup = require('yup');
 
 let schemaTypes = {
-    restaurant:yup.object().shape({
-        price_range:yup.number().min(1).max(5),
-        location:yup.string().required(),
-        name:yup.string().required(),
+    signup:yup.object().shape({
+        userType:yup.number().min(1).max(3),
+        password:yup.string().min(8).required(),
+        email:yup.string().email().required(),
     })
 }
 

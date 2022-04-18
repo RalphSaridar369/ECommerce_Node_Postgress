@@ -1,6 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {userLogin, addSubUser, userForgotPassword, userUploadImage} = require('../controllers/Users.js');
+const {
+    userLogin,
+    userSignup,
+    userForgotPassword,
+    userUploadImage
+} = require('../controllers/Users.js');
 
 const FileUpload = require('../helpers/FileUpload');
 
@@ -8,7 +13,7 @@ const FileUpload = require('../helpers/FileUpload');
 const auth = require("../middlewares/auth");
 
 router.get('/login',userLogin);
-router.get('/add-sub-user',auth,addSubUser);
+router.post('/signup',userSignup)
 router.post('/forgot-password',userForgotPassword);
 router.post('/file-upload',FileUpload.single('image'),userUploadImage)
 
