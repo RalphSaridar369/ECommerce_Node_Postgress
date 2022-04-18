@@ -29,7 +29,7 @@ const userForgotPassword =(req,res)=>{
     SendEmail('te66949@gmail.com',email,'test mail','test');
     res.status(200).json({
       status:messages[200],
-      status:`email sent to ${email}`,
+      message:`email sent to ${email}`,
     })  
   } catch (error) {
     res.status(500).json({
