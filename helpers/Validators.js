@@ -28,6 +28,11 @@ let schemaTypes = {
 
     category:yup.object().shape({
         name:yup.string().required()
+    }),
+
+    subcategory:yup.object().shape({
+        catid:yup.number().required(),
+        name:yup.string().required(),
     })
 }
 
