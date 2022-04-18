@@ -39,8 +39,13 @@ const userForgotPassword =(req,res)=>{
   
 }
 
+const userUploadImage =(req,res)=>{
+  console.log(req.file)
+}
+
 module.exports = {
     userLogin,
     addSubUser,
-    userForgotPassword
+    userForgotPassword,
+    userUploadImage
 }
