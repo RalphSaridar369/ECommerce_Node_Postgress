@@ -4,7 +4,8 @@ const {
     userLogin,
     userSignup,
     userForgotPassword,
-    userUploadImage
+    userChangePassword,
+    userVerifyForgotPassword
 } = require('../controllers/Users.js');
 
 const FileUpload = require('../helpers/FileUpload');
@@ -15,6 +16,7 @@ const auth = require("../middlewares/auth");
 router.post('/login',userLogin);
 router.post('/signup',userSignup)
 router.post('/forgot-password',userForgotPassword);
-router.post('/file-upload',FileUpload.single('image'),userUploadImage)
+router.post('/verify-forgot-password',userVerifyForgotPassword)
+router.put('/reset-password',userChangePassword);
 
 module.exports = router;

@@ -6,10 +6,25 @@ let schemaTypes = {
         password:yup.string().min(8).required(),
         email:yup.string().email().required(),
     }),
+
     login:yup.object().shape({
         password:yup.string().min(8).required(),
         email:yup.string().email().required(),
     }),
+
+    forgotPost:yup.object().shape({
+        email:yup.string().email().required()
+    }),
+
+    verifyForgot:yup.object().shape({
+        code:yup.string().required(),
+        email:yup.string().email().required()
+    }),
+
+    resetPass:yup.object().shape({
+        password:yup.string().required(),
+        email:yup.string().email().required()
+    })
 }
 
 const formValidator = async(type,data) =>{
