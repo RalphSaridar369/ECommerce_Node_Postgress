@@ -166,7 +166,19 @@
 					"name": "Get All Categories",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/category/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"category",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -175,6 +187,15 @@
 					"request": {
 						"method": "POST",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Electronics\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:5000/category",
 							"protocol": "http",
@@ -193,7 +214,19 @@
 					"name": "Get Category",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/category/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"category",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -204,7 +237,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Plants\"\r\n}",
+							"raw": "{\r\n    \"name\":\"Electronics\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -255,7 +288,18 @@
 					"name": "Get All Subcategories",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/subcategory",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"subcategory"
+							]
+						}
 					},
 					"response": []
 				},
@@ -263,7 +307,19 @@
 					"name": "Get Subcategory",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/subcategory/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"subcategory",
+								"1"
+							]
+						}
 					},
 					"response": []
 				},
@@ -274,7 +330,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Tablets\",\r\n    \"catid\":3\r\n}",
+							"raw": "{\r\n    \"name\":\"Tablet\",\r\n    \"catid\":3\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -339,6 +395,27 @@
 							"path": [
 								"subcategory",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Subcategories by Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/subcategory/category/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"subcategory",
+								"category",
+								"3"
 							]
 						}
 					},

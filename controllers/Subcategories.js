@@ -30,7 +30,25 @@ const getSubcategory = async (req, res) => {
         })
     }
     catch (error) {
-        console.log(err)
+        console.log(error)
+        res.status(500).json({
+            status: messages[500]
+        })
+    }
+}
+
+const getSubcategoriesByCategory = async (req, res) => {
+    try {
+        const result = await db.query('SELECT "name" FROM "Subcategory" WHERE "categoryId" = $1', [
+            req.params.id
+        ])
+        res.status(200).json({
+            status: messages[200],
+            data: result.rows
+        })
+    }
+    catch (error) {
+        console.log(error)
         res.status(500).json({
             status: messages[500]
         })
@@ -155,5 +173,6 @@ module.exports = {
     createSubcategory,
     getSubcategory,
     updateSubcategory,
-    deleteSubcategory
+    deleteSubcategory,
+    getSubcategoriesByCategory
 }
