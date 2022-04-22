@@ -33,6 +33,14 @@ let schemaTypes = {
     subcategory:yup.object().shape({
         catid:yup.number().required(),
         name:yup.string().required(),
+    }),
+
+    product:yup.object().shape({
+        subcategoryId:yup.number().required().min(1),
+        categoryId:yup.number().required().min(1),
+        price:yup.number().required().min(1),
+        description:yup.string().required(),
+        name:yup.string().required(),
     })
 }
 

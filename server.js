@@ -7,6 +7,7 @@ const cors = require('cors');
 const UserRoute = require('./routes/Users');
 const CategoryRoute = require('./routes/Categories');
 const SubcategoryRoute = require('./routes/Subcategories');
+const ProductRoute = require('./routes/Products');
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(morgan('tiny'))
 app.use('/user',UserRoute);
 app.use('/category',CategoryRoute);
 app.use('/subcategory',SubcategoryRoute);
+app.use('/product',ProductRoute);
 
 const port = process.env.PORT || 3001;
 app.listen(port,()=>{
