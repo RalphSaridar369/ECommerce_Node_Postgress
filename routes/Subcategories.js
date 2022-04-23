@@ -8,12 +8,13 @@ const {
     deleteSubcategory,
     getSubcategoriesByCategory
 } = require('../controllers/Subcategories');
+const isAdmin = require('../middlewares/isAdmin');
 
 router.get('/',getAllSubcategories);
 router.get('/:id',getSubcategory);
 router.get('/category/:id',getSubcategoriesByCategory);
-router.post('/',createSubcategory);
-router.put('/:id',updateSubcategory);
-router.delete("/:id",deleteSubcategory)
+router.post('/', isAdmin, createSubcategory);
+router.put('/:id', isAdmin, updateSubcategory);
+router.delete("/:id", isAdmin, deleteSubcategory)
 
 module.exports = router
